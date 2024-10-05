@@ -14,28 +14,32 @@ class Dictionary {
         }
     }
 }
-(function () {
-    let myDictionary = new Dictionary();
 
-    document.getElementById("saveWord").addEventListener("click", function () {
-        let word = document.getElementById("addedWord").value.trim();
-        if (word !== "") {
+let myDictionary = new Dictionary();
+
+function showMessage(word, elementSearchID, number) {
+    if (word !== "") {
+        if (number === 1) {
             myDictionary.addWord(word);
-            document.getElementById("addedWord").value = "";
         } else {
-            console.log(`Please enter a valid word!`);
-            document.getElementById("addedWord").value = "";
-        }
-    });
-
-    document.getElementById("searchWord").addEventListener("click", function () {
-        let word = document.getElementById("wordEntered").value.trim();
-        if (word !== "") {
             myDictionary.findWord(word);
-            document.getElementById("wordEntered").value = "";
-        } else {
-            console.log(`Please enter a valid word!`);
-            document.getElementById("wordEntered").value = "";
         }
-    });
-})();
+        document.getElementById(elementSearchID).value = "";
+    } else {
+        console.log(`Please enter a valid word!`);
+        document.getElementById(elementSearchID).value = "";
+    }
+}
+
+document.getElementById("saveWord").addEventListener("click", function () {
+    let word = document.getElementById("addedWord").value.trim();
+    let elementAddID = "addedWord";
+    showMessage(word, elementAddID, 1);
+});
+
+document.getElementById("searchWord").addEventListener("click", function () {
+    let word = document.getElementById("wordEntered").value.trim();
+    let elementSearchID = "wordEntered";
+    showMessage(word, elementSearchID, 2);
+});
+
